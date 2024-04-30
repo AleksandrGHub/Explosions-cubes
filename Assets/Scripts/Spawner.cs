@@ -9,6 +9,8 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float _explosionRadius;
     [SerializeField] private float _explosionForce;
 
+    private const string Fire1 = nameof(Fire1);
+
     private Ray _ray;
     private Transform _transform;
     private List<Rigidbody> _explodableCubes = new();
@@ -19,7 +21,7 @@ public class Spawner : MonoBehaviour
         _ray = _camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Input.GetButtonDown("Fire1") & Physics.Raycast(_ray, out hit, Mathf.Infinity))
+        if (Input.GetButtonDown(Fire1) & Physics.Raycast(_ray, out hit, Mathf.Infinity))
         {
             _transform = hit.transform;
 
