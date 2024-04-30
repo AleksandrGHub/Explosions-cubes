@@ -1,15 +1,15 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Renderer))]
+
 public class Cube : MonoBehaviour
 {
     private float _divider = 2;
     private Renderer _renderer;
-    private Transform _transform;
 
     private void Awake()
     {
         _renderer = GetComponent<Renderer>();
-        _transform = GetComponent<Transform>();
     }
 
     public void ChangeColor()
@@ -19,6 +19,6 @@ public class Cube : MonoBehaviour
 
     public void ChangeScale()
     {
-        _transform.localScale /= _divider;
+        transform.localScale /= _divider;
     }
 }

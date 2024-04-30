@@ -27,7 +27,7 @@ public class Spawner : MonoBehaviour
             {
                 Destroy(hit.transform.gameObject);
 
-                if (TryCallMethod())
+                if (TrySatisfy())
                 {
                     Spawn();
                     Explode();
@@ -39,7 +39,7 @@ public class Spawner : MonoBehaviour
 
     private void Spawn()
     {
-        Rigidbody gameObject;
+        Rigidbody clone;
         float positionY = 0;
         float angleDegreesX = 0;
         float angleDegreesZ = 0;
@@ -59,11 +59,12 @@ public class Spawner : MonoBehaviour
             Vector3 position = _transform.position + new Vector3(positionX, positionY, positionZ);
             float angleDegreesY = -angle * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.Euler(angleDegreesX, angleDegreesY, angleDegreesZ);
-            gameObject = Instantiate(_prefab, position, rotation);
-            gameObject.transform.localScale = _transform.localScale;
-            gameObject.GetComponent<Cube>().ChangeScale();
-            gameObject.GetComponent<Cube>().ChangeColor();
-            _explodableCubes.Add(gameObject);
+            clone = Instantiate(_prefab, position, rotation);
+            clone.transform.localScale = _transform.localScale;
+            Cube cube = clone.GetComponent<Cube>();
+            cube.ChangeScale();
+            cube.ChangeColor();
+            _explodableCubes.Add(clone);
         }
     }
 
@@ -75,7 +76,7 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    private bool TryCallMethod()
+    private bool TrySatisfy()
     {
         int minNumber = 0;
         int maxNumber = 100;
